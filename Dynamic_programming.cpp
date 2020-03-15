@@ -1,3 +1,13 @@
+// ConsoleApplication1.cpp : 此檔案包含 'main' 函式。程式會於該處開始執行及結束執行。	//
+// 執行程式: Ctrl + F5 或 [偵錯] > [啟動但不偵錯] 功能表
+// 偵錯程式: F5 或 [偵錯] > [啟動偵錯] 功能表
+// 開始使用的提示: 
+//   1. 使用 [方案總管] 視窗，新增/管理檔案
+//   2. 使用 [Team Explorer] 視窗，連線到原始檔控制
+//   3. 使用 [輸出] 視窗，參閱組建輸出與其他訊息
+//   4. 使用 [錯誤清單] 視窗，檢視錯誤
+//   5. 前往 [專案] > [新增項目]，建立新的程式碼檔案，或是前往 [專案] > [新增現有項目]，將現有程式碼檔案新增至專案
+//   6. 之後要再次開啟此專案時，請前往 [檔案] > [開啟] > [專案]，然後選取 .sln 檔案
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -54,8 +64,10 @@ void Lowest_price(int arr[][3]){
 	int Start_backpack[100][3] = { 0,0,false };	//空背包 1.編號 2.價格 3.拿和不拿
 	int End_backpack[100][3]   = { 0,0,false };	//最終會回傳給主程式的答案
 	int Target_amount = 350;					//目標金額
-	int Max_amount    = 0;						//最大總額
+	int Max_amount    = 0;						//所有東西的總額
+	int Now_amount    = 0;						//目前金額
 	int A[100];									//計算動態規劃時用的暫存背包
+	int B[10][10];								//最終會給出的答案
 	int n = 0;									//商品的數量
 	//將上面的變數匯入cata[][]的資訊
 	for (int i = 0, q = 0; i < 5; i++){
@@ -74,17 +86,25 @@ void Lowest_price(int arr[][3]){
 	}
 	//以動態規劃的方式搜尋最佳解
 	for (int i = 0; i < n; i++) {
-		int now_amount = 0;				//每一輪都將金額歸零
-		A[i] = Start_backpack[i][1];	//將第一項商品金額移入A[]
-		Start_backpack[i][2] = true;	//將false -> true 表示這項有拿
-		for (int j = 0; j <= n; i++) {	//紀錄所有 true 的金額加總
-			if (Start_backpack[j][2] = true) {
-				now_amount = now_amount + A[j];
+		Now_amount = 0;
+		A[i] = 0;
+		for (int j = i; j < n; j++) {
+			Now_amount = Now_amount + Start_backpack[j][1];
+			Start_backpack[j][2] = true;
+			//計算現在拿了多少東西
+			for (int k = 0; k < n; k++) {
+				//若暫存背包為空
+				if (A[k] =! 0){
+					A[k] = Start_backpack[j][0];
+				}
+				//若已達成目標金額且已記錄完畢
+				if (Now_amount > Max_amount) {
+						B[][]
+						Now_amount = Now_amount - Start_backpack[j][1];
+						Start_backpack[j][2] = false;
+						continue;
+				}
 			}
-		}
-		if (now_amount >= Target_amount && now_amount <= Max_amount) {
-			Start_backpack[i][2] = !Start_backpack[i][2];
-
 		}
 	}
 }
@@ -93,3 +113,25 @@ void Lowest_price(int arr[][3]){
 void Average() {
 
 }
+
+/*
+int now_amount = 0;				//每一輪都將金額歸零
+A[i] = Start_backpack[i][1];	//將第i項商品金額移入A[]
+Start_backpack[i][2] = true;	//將false -> true 表示這項有拿
+for (int j = 0; j <= n; i++) {	//紀錄所有 true 的金額加總
+	if (Start_backpack[j][2] = true) {
+		now_amount = now_amount + A[j];
+	}
+}
+// 若A[]的金額已達到目標且更接近目標金額
+if (now_amount >= Target_amount && now_amount <= Max_amount) {
+	//如果相同，將新的組合移入下個位置，反之則清空背包重新填入
+	if (now_amount == Max_amount) {
+	} else {
+		B[10][10] = 0;
+		Max_amount = now_amount;
+	}
+	//取消上次的true 將目前金額回復到上次金額
+	Start_backpack[i][2] = !Start_backpack[i][2];
+
+}*/
