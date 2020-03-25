@@ -11,7 +11,7 @@ typedef struct {
 	int number;
 } goods;
 
-void input_menu(int isUse[], int sum, int startFlag, int** Start_backpack, int targetSum);
+void input_menu(int isUse[], int sum, int startFlag, int** Start_backpack, int targetSum , int max);
 
 void Average();
 
@@ -24,7 +24,7 @@ int main() {
 		{5,210,2},
 		{-1,-1,-1}
 	};
-	int i, j, q;
+	int i, j, q, Max;
 	int targetSum = 350;
 	int isUse[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	int n = 0;
@@ -48,6 +48,7 @@ int main() {
 		for (j = 1; j <= menu[i].number; j++) {
 			Start_backpack[q][0] = menu[i].serial;
 			Start_backpack[q][1] = menu[i].price;
+			max = max + menu[i].price;
 			q++;
 		}
 	}
@@ -66,15 +67,16 @@ int main() {
 	delete[] Start_backpack;
 }
 
-void input_menu(int isUse[], int sum, int startFlag, int** Start_backpack, int targetSum) {
+void input_menu(int isUse[], int sum, int startFlag, int** Start_backpack, int targetSum , int max) {
 	int i;
 	//目前金額>=目標金額
-	if (sum >= targetSum) {
+	if (sum >= targetSum && sum <= max) {
 		for (i = 0; i < 10; i++) {
 			if (isUse[i] == 1) {
 				printf("%d ", i);
 			}
 		}
+		max = sum;
 		printf("---");
 		printf("%d\n", sum);
 	}
@@ -83,7 +85,7 @@ void input_menu(int isUse[], int sum, int startFlag, int** Start_backpack, int t
 		for (i = startFlag; i < 10; i++) {
 			if (isUse[i] == 0) {
 				isUse[i] = 1;
-				input_menu(isUse, sum + Start_backpack[i][1], i + 1, Start_backpack, targetSum);
+				input_menu(isUse, sum + Start_backpack[i][1], i + 1, Start_backpack, targetSum , max);
 				isUse[i] = 0;
 			}
 		}
