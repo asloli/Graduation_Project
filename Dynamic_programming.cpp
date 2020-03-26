@@ -24,7 +24,7 @@ int main() {
 		{5,210,2},
 		{-1,-1,-1}
 	};
-	int i, j, q, Max;
+	int i, j, q, max;
 	int targetSum = 350;
 	int isUse[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	int n = 0;
@@ -59,7 +59,7 @@ int main() {
 		printf("serial:%d,price:%d\n", Start_backpack[i][0], Start_backpack[i][1]);
 	}
 
-	input_menu(isUse, 0, 0, Start_backpack, targetSum);
+	input_menu(isUse, 0, 0, Start_backpack, targetSum , max);
 
 
 	for (int i = 0; i < n; ++i)
