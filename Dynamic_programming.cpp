@@ -93,3 +93,4 @@ void input_menu(int isUse[], int sum, int startFlag, int** Start_backpack, int t
 }
 
 // 蕭同學的 git 測試
+// 果雉雞的 git 測試
